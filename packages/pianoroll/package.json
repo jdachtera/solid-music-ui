@@ -1,0 +1,75 @@
+{
+  "version": "0.0.18",
+  "name": "solid-pianoroll",
+  "description": "Pianoroll UI Control for Solid JS apps",
+  "license": "MIT",
+  "author": "jdachtera",
+  "contributors": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jdachtera/solid-pianoroll.git"
+  },
+  "homepage": "https://github.com/jdachtera/solid-pianoroll#readme",
+  "bugs": {
+    "url": "https://github.com/jdachtera/solid-pianoroll/issues"
+  },
+  "private": false,
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "solid": "./dist/source/index.jsx",
+      "import": "./dist/esm/index.js",
+      "browser": {
+        "import": "./dist/esm/index.js",
+        "require": "./dist/cjs/index.js"
+      },
+      "require": "./dist/cjs/index.js",
+      "node": "./dist/cjs/index.js"
+    }
+  },
+  "scripts": {
+    "dev": "vite serve dev",
+    "build-dev": "vite build dev",
+    "test": "echo \"test not setup\"",
+    "build": "rollup -c && yarn build-dev",
+    "prepublishOnly": "yarn build",
+    "format": "prettier -w \"src/**/*.{js,ts,json,css,tsx,jsx}\" \"dev/**/*.{js,ts,json,css,tsx,jsx}\"",
+    "update-deps": "taze -w && yarn",
+    "typecheck": "tsc --noEmit"
+  },
+  "optionalDependencies": {
+    "@tonejs/midi": "^2.0.28",
+    "tone": "^14.7.77"
+  },
+  "peerDependencies": {
+    "solid-js": ">=1.0.0"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.47.1",
+    "@typescript-eslint/parser": "^5.47.1",
+    "eslint": "^8.31.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "postcss": "^8.4.20",
+    "prettier": "2.8.1",
+    "rollup": "^3.7.2",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-preset-solid": "^2.0.1",
+    "solid-js": "^1.6.4",
+    "taze": "^0.8.4",
+    "typescript": "^4.9.4",
+    "typescript-plugin-css-modules": "^4.1.1",
+    "vite": "^4.0.0",
+    "vite-plugin-solid": "^2.5.0"
+  },
+  "keywords": [
+    "solid"
+  ]
+}
