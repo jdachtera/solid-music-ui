@@ -19,10 +19,8 @@ export const solidLibrary =
       { entries: { entry, dev_entry: devEntry }, drop_console: dropConsole, cjs: true },
       Boolean(config.watch),
     );
-    return preset
-      .generateTsupOptions(parsed)
-      .map((options) => ({
-        ...options,
-        esbuildPlugins: [...(options.esbuildPlugins ?? []), ...esbuildPlugins],
-      }));
+    return preset.generateTsupOptions(parsed).map((options) => ({
+      ...options,
+      esbuildPlugins: [...(options.esbuildPlugins ?? []), ...esbuildPlugins],
+    }));
   };

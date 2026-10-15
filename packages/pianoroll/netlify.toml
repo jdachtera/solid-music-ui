@@ -1,11 +1,12 @@
-# Netlify builds with the Node version the site was created with (16 here), and
-# pnpm 10 (packageManager in package.json) needs Node 18.12 or later. Pinned
-# here, it no longer depends on the dashboard.
+# Set the site's base directory to this package (packages/<name>). Netlify then
+# installs the whole pnpm workspace from the root and runs these from here.
+#
+# The site is the demo (dev/). It takes the workspace packages from their src/
+# (the @solid-music-ui/source condition), so it needs no library build first.
+[build]
+command = "pnpm build-dev"
+publish = "dev/dist"
+
+# Otherwise a site builds with whatever Node it was created with.
 [build.environment]
 NODE_VERSION = "22"
-
-# The site is the demo. `pnpm build` alone builds only the library (tsup, for
-# npm); the demo is `build-dev`, built against the library it imports.
-[build]
-command = "pnpm build && pnpm build-dev"
-publish = "dev/dist"
