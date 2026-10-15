@@ -38,7 +38,9 @@
   width: 4px;
   background: var(--track-color, currentColor);
   opacity: 0.7;
-  transition: width 0.15s, opacity 0.15s;
+  transition:
+    width 0.15s,
+    opacity 0.15s;
 }
 
 .Track:hover {

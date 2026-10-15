@@ -6,7 +6,7 @@ One viewport core for scrollable & zoomable content in [Solid](https://www.solid
 
 ## The idea
 
-An **axis** maps *value space* (samples, ticks, list indices, seconds — whatever the content is measured in) to *pixel space* on screen, given a scroll `position` and a `zoom`. A **viewport** is just N named axes: a list needs one, a waveform one, a piano roll two (time + pitch).
+An **axis** maps _value space_ (samples, ticks, list indices, seconds — whatever the content is measured in) to _pixel space_ on screen, given a scroll `position` and a `zoom`. A **viewport** is just N named axes: a list needs one, a waveform one, a piano roll two (time + pitch).
 
 Everything else is built on that:
 
@@ -77,19 +77,19 @@ const dims = () => axis.dimensions(note.start, note.length); // { offset, size }
 
 `createViewPortAxis(getState)` (and `useAxis(name)`) expose:
 
-| method | purpose |
-| --- | --- |
-| `toPixels(value)` | value → absolute px at current zoom |
-| `toPixelOffset(value)` | value → px relative to scroll position |
-| `toPosition(offset)` | px offset → value |
-| `dimensions(pos, len)` | `{ offset, size }` — raw placement (may be off-screen) |
-| `clampedDimensions(pos, len)` | placement clipped to the viewport box |
-| `isVisible(dims)` | does a span intersect the viewport? |
-| `visibleRange()` | how much of `range` is on screen |
-| `maxPosition()` | largest legal scroll position |
-| `scrollTo(value)` | move `value` to the viewport's start edge |
-| `center(value)` | put `value` at the viewport centre |
-| `ensureVisible(pos, len?, pad?)` | pan the minimum so `[pos, pos+len]` is on screen |
+| method                           | purpose                                                |
+| -------------------------------- | ------------------------------------------------------ |
+| `toPixels(value)`                | value → absolute px at current zoom                    |
+| `toPixelOffset(value)`           | value → px relative to scroll position                 |
+| `toPosition(offset)`             | px offset → value                                      |
+| `dimensions(pos, len)`           | `{ offset, size }` — raw placement (may be off-screen) |
+| `clampedDimensions(pos, len)`    | placement clipped to the viewport box                  |
+| `isVisible(dims)`                | does a span intersect the viewport?                    |
+| `visibleRange()`                 | how much of `range` is on screen                       |
+| `maxPosition()`                  | largest legal scroll position                          |
+| `scrollTo(value)`                | move `value` to the viewport's start edge              |
+| `center(value)`                  | put `value` at the viewport centre                     |
+| `ensureVisible(pos, len?, pad?)` | pan the minimum so `[pos, pos+len]` is on screen       |
 
 ## Wheel behaviour
 
@@ -117,7 +117,7 @@ Pointer anchoring (zoom and pinch) is measured from the container's own box, so 
 
 ```tsx
 import { ZoomSlider } from "solid-viewport";
-<ZoomSlider direction="horizontal" />   // a range input bound to the axis's zoom
+<ZoomSlider direction="horizontal" />; // a range input bound to the axis's zoom
 ```
 
 ## Measuring
@@ -125,9 +125,10 @@ import { ZoomSlider } from "solid-viewport";
 `createElementSize(() => el)` gives a reactive `{ width, height }` (ResizeObserver) to feed an axis's `pixelSize`:
 
 ```tsx
-let el; const size = createElementSize(() => el);
+let el;
+const size = createElementSize(() => el);
 // ...pixelSize: size().width
-<div ref={el} />
+<div ref={el} />;
 ```
 
 ## License

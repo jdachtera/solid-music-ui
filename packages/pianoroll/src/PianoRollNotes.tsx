@@ -94,8 +94,8 @@ const PianoRollNotes = (props: { ref?: Ref<HTMLDivElement | undefined> }) => {
     return relativeX - noteStartX < zone
       ? "trimStart"
       : noteEndX - relativeX < zone
-      ? "trimEnd"
-      : "move";
+        ? "trimEnd"
+        : "move";
   };
 
   /** Touch has neither hover nor a second button, so the two gestures a mouse
@@ -143,11 +143,11 @@ const PianoRollNotes = (props: { ref?: Ref<HTMLDivElement | undefined> }) => {
             context.tracks.length - 1,
           )
         : currentNoteTrackIndex() > -1
-        ? currentNoteTrackIndex()
-        : context.selectedTrackIndex;
+          ? currentNoteTrackIndex()
+          : context.selectedTrackIndex;
 
     const midi =
-      context.mode === "keys" ? midiAtPointer(event) - diffMidi() : getInitialNote()?.midi ?? 60;
+      context.mode === "keys" ? midiAtPointer(event) - diffMidi() : (getInitialNote()?.midi ?? 60);
 
     const horiontalPosition = horizontalViewPort().toPosition(event.clientX);
 

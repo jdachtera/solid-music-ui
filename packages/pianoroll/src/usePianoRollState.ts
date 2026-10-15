@@ -129,7 +129,7 @@ const createPianoRollstate = (
     // The store is the truth for down/up: if anyone has reset pressedKeys
     // through onPressedKeysChange, a stale count must not keep a key down.
     const isDown = !!state.pressedKeys[trackIndex]?.[keyNumber];
-    const count = Math.max(0, (isDown ? pressCounts.get(countKey) ?? 1 : 0) + delta);
+    const count = Math.max(0, (isDown ? (pressCounts.get(countKey) ?? 1) : 0) + delta);
     pressCounts.set(countKey, count);
 
     if (count > 0 === isDown) return;

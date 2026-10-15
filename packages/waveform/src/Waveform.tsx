@@ -300,8 +300,8 @@ const Waveform = (allProps: WaveformProps): JSX.Element => {
       event.deltaMode === 1
         ? event.deltaY * WHEEL_LINE_PX
         : event.deltaMode === 2
-        ? event.deltaY * (height || WHEEL_LINE_PX)
-        : event.deltaY;
+          ? event.deltaY * (height || WHEEL_LINE_PX)
+          : event.deltaY;
     props.onScaleChange?.(clamp(props.scale * Math.exp(-deltaY * ZOOM_SENSITIVITY), 0.1, 5));
   };
 

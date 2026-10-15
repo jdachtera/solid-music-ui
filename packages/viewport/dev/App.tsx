@@ -81,12 +81,7 @@ function ZoomDemo() {
         }),
       }}
     >
-      <div
-        ref={stripEl}
-        class="demo-strip stage"
-        data-pos={position()}
-        data-zoom={zoom()}
-      >
+      <div ref={stripEl} class="demo-strip stage" data-pos={position()} data-zoom={zoom()}>
         <ScrollContainer wheel={wheelMode()} zoomSensitivity={sensitivity()} invertZoom={invert()}>
           <Ticks />
         </ScrollContainer>
@@ -201,7 +196,7 @@ const RULER = 28;
 const CLIPS = (() => {
   // Deterministic pseudo-random clips so the demo looks the same every load.
   let seed = 7;
-  const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+  const rand = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
   return Array.from({ length: 220 }, (_, id) => {
     const lane = Math.floor(rand() * LANES);
     const start = Math.floor(rand() * (BARS - 2) * 4) / 4;
@@ -278,7 +273,10 @@ function TimelineDemo() {
         </button>
       </div>
       <p class="stats">
-        <Stat label="bars" value={`${x().position.toFixed(1)} – ${(x().position + BARS / x().zoom).toFixed(1)}`} />
+        <Stat
+          label="bars"
+          value={`${x().position.toFixed(1)} – ${(x().position + BARS / x().zoom).toFixed(1)}`}
+        />
         <Stat label="time zoom" value={`${x().zoom.toFixed(1)}×`} />
         <Stat label="lane zoom" value={`${y().zoom.toFixed(1)}×`} />
       </p>

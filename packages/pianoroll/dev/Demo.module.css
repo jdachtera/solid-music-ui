@@ -219,7 +219,9 @@ input[type="checkbox"] {
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
 }
 
 .button:hover {
@@ -266,7 +268,9 @@ input[type="checkbox"] {
   font-size: 14px;
   line-height: 1;
   cursor: pointer;
-  transition: background 0.15s, border-color 0.15s;
+  transition:
+    background 0.15s,
+    border-color 0.15s;
 }
 
 .iconButton:hover {
@@ -295,7 +299,9 @@ input[type="checkbox"] {
   font-weight: 500;
   cursor: pointer;
   font-variant-numeric: tabular-nums;
-  transition: background 0.15s, color 0.15s;
+  transition:
+    background 0.15s,
+    color 0.15s;
 }
 
 .seg:hover {

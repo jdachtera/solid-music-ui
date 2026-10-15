@@ -2,10 +2,10 @@
 # pnpm 10 (packageManager in package.json) needs Node 18.12 or later. Pinned
 # here, it no longer depends on the dashboard.
 [build.environment]
-  NODE_VERSION = "22"
+NODE_VERSION = "22"
 
 # The site is the demo. `pnpm build` alone builds only the library (tsup, for
 # npm); the demo is `build-dev`, built against the library it imports.
 [build]
-  command = "pnpm build && pnpm build-dev"
-  publish = "dev/dist"
+command = "pnpm build && pnpm build-dev"
+publish = "dev/dist"

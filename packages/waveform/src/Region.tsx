@@ -5,7 +5,7 @@ import useWaveformViewPortScaler from "./useWaveformViewportScaler";
 export type Region = { id: string; color: string; start: number; end: number };
 
 const regionDragHandles = ["LEFT", "MIDDLE", "RIGHT"] as const;
-type RegionDragHandle = typeof regionDragHandles[number];
+type RegionDragHandle = (typeof regionDragHandles)[number];
 
 export const Region = (props: {
   region: Region;

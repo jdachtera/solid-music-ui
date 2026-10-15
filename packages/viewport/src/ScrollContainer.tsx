@@ -85,10 +85,10 @@ const pinchAxesOf = (pinch: Pinch | undefined): PinchAxes =>
   pinch === "horizontal"
     ? { horizontal: true, vertical: false }
     : pinch === "vertical"
-    ? { horizontal: false, vertical: true }
-    : pinch === false
-    ? { horizontal: false, vertical: false }
-    : { horizontal: true, vertical: true };
+      ? { horizontal: false, vertical: true }
+      : pinch === false
+        ? { horizontal: false, vertical: false }
+        : { horizontal: true, vertical: true };
 
 // Wheel delta -> px, normalizing the three deltaModes (pixel/line/page).
 function wheelPx(delta: number, deltaMode: number, pageSize: number) {
@@ -312,7 +312,7 @@ const ScrollContainer = (
         // Target axis: explicit name, else the dominant-delta axis, falling back to
         // whichever exists (1-D surfaces, or a wheel that only emits deltaY over a
         // horizontal-only axis).
-        const axis = action.axis ? byName(action.axis) : (dominantH ? hv : vv) ?? hv ?? vv;
+        const axis = action.axis ? byName(action.axis) : ((dominantH ? hv : vv) ?? hv ?? vv);
         if (!axis) continue;
 
         if (action.type === "zoom") {

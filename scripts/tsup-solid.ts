@@ -21,5 +21,8 @@ export const solidLibrary =
     );
     return preset
       .generateTsupOptions(parsed)
-      .map((options) => ({ ...options, esbuildPlugins: [...(options.esbuildPlugins ?? []), ...esbuildPlugins] }));
+      .map((options) => ({
+        ...options,
+        esbuildPlugins: [...(options.esbuildPlugins ?? []), ...esbuildPlugins],
+      }));
   };

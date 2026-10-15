@@ -226,7 +226,7 @@ describe("<PianoRoll>", () => {
   } as unknown as typeof ResizeObserver;
   Element.prototype.scrollTo ??= function () {};
   Element.prototype.getBoundingClientRect = () =>
-    ({ left: 0, top: 0, right: 800, bottom: 600, width: 800, height: 600, x: 0, y: 0 } as DOMRect);
+    ({ left: 0, top: 0, right: 800, bottom: 600, width: 800, height: 600, x: 0, y: 0 }) as DOMRect;
 
   it("mounts with every axis and scroller wired up", () => {
     const host = document.createElement("div");

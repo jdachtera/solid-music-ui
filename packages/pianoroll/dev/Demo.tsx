@@ -262,9 +262,7 @@ const Demo: Component = () => {
     <div class={styles.App}>
       <header class={styles.header}>
         <h1 class={styles.title}>Solid Pianoroll</h1>
-        <p class={styles.subtitle}>
-          Editable, zoomable piano roll & MIDI note editor for SolidJS.
-        </p>
+        <p class={styles.subtitle}>Editable, zoomable piano roll & MIDI note editor for SolidJS.</p>
       </header>
 
       <div class={styles.board}>
@@ -284,10 +282,7 @@ const Demo: Component = () => {
                 </span>
               </span>
             </div>
-            <div
-              class={styles.stage}
-              classList={{ [styles.themeDark]: theme() === "dark" }}
-            >
+            <div class={styles.stage} classList={{ [styles.themeDark]: theme() === "dark" }}>
               <Show
                 when={!parsedMidi.error}
                 fallback={<div class={styles.stagePlaceholder}>Failed to load MIDI file</div>}
@@ -371,7 +366,10 @@ const Demo: Component = () => {
                 </button>
               </div>
 
-              <label class={`${styles.button} ${styles.fileButton}`} style={{ "grid-column": "1 / -1" }}>
+              <label
+                class={`${styles.button} ${styles.fileButton}`}
+                style={{ "grid-column": "1 / -1" }}
+              >
                 Open .mid file…
                 <input
                   type="file"
@@ -527,8 +525,8 @@ const Demo: Component = () => {
             </Show>
             <p class={styles.hint}>
               Click the grid to add a note, drag to move, drag its end to resize, double-click (or
-              long-press) to delete. Hold ⌥/Alt while dragging to skip the grid. Pinch to zoom,
-              or ⌥/Alt+scroll to zoom one axis.
+              long-press) to delete. Hold ⌥/Alt while dragging to skip the grid. Pinch to zoom, or
+              ⌥/Alt+scroll to zoom one axis.
             </p>
           </div>
         </div>
