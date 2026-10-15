@@ -7,15 +7,15 @@
   "contributors": [],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jdachtera/solid-viewport.git"
+    "url": "git+https://github.com/jdachtera/solid-music-ui.git",
+    "directory": "packages/viewport"
   },
-  "homepage": "https://github.com/jdachtera/solid-viewport#readme",
+  "homepage": "https://github.com/jdachtera/solid-music-ui/tree/main/packages/viewport#readme",
   "bugs": {
-    "url": "https://github.com/jdachtera/solid-viewport/issues"
+    "url": "https://github.com/jdachtera/solid-music-ui/issues"
   },
   "private": false,
   "type": "module",
-  "packageManager": "pnpm@10.12.4",
   "files": [
     "dist"
   ],

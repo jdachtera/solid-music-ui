@@ -7,15 +7,15 @@
   "contributors": [],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jdachtera/solid-waveform.git"
+    "url": "git+https://github.com/jdachtera/solid-music-ui.git",
+    "directory": "packages/waveform"
   },
-  "homepage": "https://github.com/jdachtera/solid-waveform#readme",
+  "homepage": "https://github.com/jdachtera/solid-music-ui/tree/main/packages/waveform#readme",
   "bugs": {
-    "url": "https://github.com/jdachtera/solid-waveform/issues"
+    "url": "https://github.com/jdachtera/solid-music-ui/issues"
   },
   "private": false,
   "type": "module",
-  "packageManager": "pnpm@10.12.4",
   "files": [
     "dist"
   ],
@@ -47,7 +47,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "solid-viewport": "^0.3.1"
+    "solid-viewport": "workspace:^"
   },
   "peerDependencies": {
     "solid-js": ">=1.0.0"
