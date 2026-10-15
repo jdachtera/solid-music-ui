@@ -1,0 +1,68 @@
+{
+  "version": "1.6.0",
+  "name": "solid-waveform",
+  "description": "Waveform UI Control for Solid JS apps",
+  "license": "MIT",
+  "author": "jdachtera",
+  "contributors": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jdachtera/solid-waveform.git"
+  },
+  "homepage": "https://github.com/jdachtera/solid-waveform#readme",
+  "bugs": {
+    "url": "https://github.com/jdachtera/solid-waveform/issues"
+  },
+  "private": false,
+  "type": "module",
+  "packageManager": "pnpm@10.12.4",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "solid": "./dist/source/index.jsx",
+      "import": "./dist/esm/index.js",
+      "browser": {
+        "import": "./dist/esm/index.js",
+        "require": "./dist/cjs/index.js"
+      },
+      "require": "./dist/cjs/index.js",
+      "node": "./dist/cjs/index.js"
+    }
+  },
+  "scripts": {
+    "dev": "vite serve dev",
+    "build-dev": "vite build dev",
+    "test": "echo \"test not setup\"",
+    "build": "rollup -c && pnpm build-dev",
+    "prepack": "pnpm build",
+    "prepublishOnly": "pnpm build",
+    "format": "prettier -w \"src/**/*.{js,ts,json,css,tsx,jsx}\" \"dev/**/*.{js,ts,json,css,tsx,jsx}\"",
+    "update-deps": "taze -w && pnpm install",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "solid-viewport": "^0.3.1"
+  },
+  "peerDependencies": {
+    "solid-js": ">=1.0.0"
+  },
+  "devDependencies": {
+    "prettier": "2.8.1",
+    "rollup": "^3.7.2",
+    "rollup-preset-solid": "^2.0.1",
+    "solid-js": "^1.6.4",
+    "taze": "^0.8.4",
+    "typescript": "^4.9.4",
+    "vite": "^4.0.0",
+    "vite-plugin-solid": "^2.5.0"
+  },
+  "keywords": [
+    "solid"
+  ]
+}
