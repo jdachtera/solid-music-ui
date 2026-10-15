@@ -25,7 +25,8 @@ const PianoRollKeys = () => {
           layout="rows"
           axis={verticalViewPort()}
           middleC={3}
-          resetKey={context.selectedTrackIndex}
+          // A new track, or whatever the caller says changed, releases the keys.
+          resetKey={[context.selectedTrackIndex, context.resetKey]}
           isDown={(note) => context.isKeyDown(context.selectedTrackIndex, note)}
           onNoteOn={(note, velocity) => {
             pressedOn.set(note, context.selectedTrackIndex);

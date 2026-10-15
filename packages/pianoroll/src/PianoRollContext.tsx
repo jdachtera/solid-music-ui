@@ -9,6 +9,8 @@ export type PianoRollContext = {
   /** Display the notes, refuse to change them — see PianoRollProps. */
   readOnly?: boolean;
   pinchZoom?: PianoRollProps["pinchZoom"];
+  /** Releases the held keys when it changes — see PianoRollProps. */
+  resetKey?: unknown;
 } & ReturnType<typeof createPianoRollstate>;
 
 const PianoRollContext = createContext<PianoRollContext>();
@@ -30,4 +32,5 @@ export const splitContextProps = (allProps: PianoRollProps) =>
     "showTrackList",
     "readOnly",
     "pinchZoom",
+    "resetKey",
   ]);

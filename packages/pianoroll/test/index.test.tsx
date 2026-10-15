@@ -1,6 +1,6 @@
-import { createEffect, createRoot } from "solid-js";
+import { createEffect, createRoot, createSignal } from "solid-js";
 import { isServer } from "solid-js/web";
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { createPianoRollstate, PianoRoll, PlayHead, useNotes } from "../src";
 import { render } from "solid-js/web";
 import { builtInNoteEditors, createNoteEditors } from "../src/usePianoRollState";
@@ -248,6 +248,32 @@ describe("<PianoRoll>", () => {
 
     state.onModeChange("tracks");
     expect(host.textContent).toContain("Piano");
+
+    dispose();
+    host.remove();
+  });
+
+  it("releases the keys held down the side when its resetKey changes", () => {
+    const host = document.createElement("div");
+    document.body.appendChild(host);
+    const onNoteUp = vi.fn();
+    const [slot, setSlot] = createSignal(0);
+    const dispose = render(() => {
+      const state = createPianoRollstate({ ppq: 480, duration: 1920 });
+      return <PianoRoll {...state} resetKey={slot()} onNoteUp={onNoteUp} />;
+    }, host);
+
+    const key = host.querySelector("[data-note='60']")!;
+    document.elementFromPoint = () => key;
+    const down = new MouseEvent("pointerdown", { bubbles: true });
+    Object.assign(down, { pointerId: 1, pointerType: "touch" });
+    key.dispatchEvent(down);
+    expect(onNoteUp).not.toHaveBeenCalled();
+
+    setSlot(1);
+    expect(onNoteUp).toHaveBeenCalledWith(0, 60);
+    // Nothing is left on the div as a stray attribute.
+    expect(host.querySelector("[resetkey]")).toBeNull();
 
     dispose();
     host.remove();

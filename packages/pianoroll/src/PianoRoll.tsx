@@ -36,6 +36,12 @@ export type PianoRollProps = {
   /** Which axes a pinch zooms, by touch or trackpad: true / "both" (default),
    * "horizontal" (time only), "vertical" (pitch only), or false. */
   pinchZoom?: Pinch;
+  /** Changing this releases every key held down the side, each with its
+   * onNoteUp: whatever the keys play changed under a held finger (another
+   * instrument, another slot), and the old one must not be left sounding.
+   * Switching tracks already does this; this is for changes the roll cannot
+   * see. */
+  resetKey?: unknown;
 } & ReturnType<typeof createPianoRollstate> &
   Omit<JSX.IntrinsicElements["div"], "onDurationChange">;
 
