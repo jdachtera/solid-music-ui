@@ -59,7 +59,7 @@ export function VirtualList<T>(props: VirtualListProps<T>) {
     typeof props.itemSize === "function" ? props.itemSize(item, i) : props.itemSize;
 
   const offsets = createMemo(() =>
-    prefixSums(props.items.length, (i) => sizeOf(props.items[i], i)),
+    prefixSums(props.items.length, (i) => sizeOf(props.items[i]!, i)),
   );
   const total = () => {
     const o = offsets();
@@ -119,7 +119,7 @@ export function VirtualList<T>(props: VirtualListProps<T>) {
       style={{
         position: "relative",
         ...(horiz() ? { width: `${total()}px` } : { height: `${total()}px` }),
-        ...(props.style || {}),
+        ...props.style,
       }}
     >
       <For each={windowItems()}>

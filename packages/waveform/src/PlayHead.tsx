@@ -1,4 +1,4 @@
-import { createEffect, createMemo, JSX, mergeProps, splitProps, untrack } from "solid-js";
+import { createEffect, createMemo, JSX, mergeProps, splitProps } from "solid-js";
 import { useWaveformContext } from "./context";
 import { clamp } from "./helpers";
 import useWaveformViewPortScaler from "./useWaveformViewportScaler";

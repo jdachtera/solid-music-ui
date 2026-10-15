@@ -1,4 +1,4 @@
-import { Accessor, createContext, useContext } from "solid-js";
+import { createContext, useContext } from "solid-js";
 
 export type WaveformContext = {
   duration: number;

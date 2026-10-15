@@ -1,4 +1,4 @@
-import { createMemo, createSignal, createUniqueId, Index, JSX } from "solid-js";
+import { createSignal, createUniqueId, Index, JSX } from "solid-js";
 import { useWaveformContext } from "./context";
 import { randomColor } from "./helpers";
 import { Region } from "./Region";

@@ -1,22 +1,14 @@
-import { defineConfig, GlobalOptions } from "tsup-preset-solid";
-
+import { defineConfig } from "tsup";
 import esbuildCss from "esbuild-css-modules-plugin";
+import { solidLibrary } from "../../scripts/tsup-solid";
 
 export default defineConfig(
-  {
+  solidLibrary({
     entry: "src/index.tsx",
     devEntry: true,
-  },
-  {
-    // Enable this to write export conditions to package.json
-    // writePackageJson: true,
     dropConsole: true,
-    cjs: true,
-    esbuildPlugins: [
-      esbuildCss({
-        inject: true,
-        localsConvention: "camelCase",
-      }) as unknown as NonNullable<GlobalOptions["esbuildPlugins"]>[number],
-    ],
-  },
+    // The roll's styles are CSS modules, injected by the JS so consumers need
+    // no stylesheet import.
+    esbuildPlugins: [esbuildCss({ inject: true, localsConvention: "camelCase" })],
+  }),
 );

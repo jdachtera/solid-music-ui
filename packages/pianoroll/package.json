@@ -23,8 +23,8 @@
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "browser": {},
   "exports": {
+    "@solid-music-ui/source": "./src/index.tsx",
     "solid": {
       "development": "./dist/dev.jsx",
       "import": "./dist/index.jsx"
@@ -42,18 +42,13 @@
     },
     "require": "./dist/index.cjs"
   },
-  "typesVersions": {},
   "scripts": {
     "dev": "vite serve dev",
     "build-dev": "vite build dev",
-    "test": "concurrently pnpm:test:*",
     "build": "tsup",
-    "test:client": "vitest",
-    "test:ssr": "pnpm run test:client --mode ssr",
-    "prepublishOnly": "pnpm build",
-    "format": "prettier --ignore-path .gitignore -w \"src/**/*.{js,ts,json,css,tsx,jsx}\" \"dev/**/*.{js,ts,json,css,tsx,jsx}\"",
-    "update-deps": "pnpm up -Li",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run && vitest run --mode ssr",
+    "prepublishOnly": "pnpm build"
   },
   "dependencies": {
     "solid-viewport": "workspace:^"
@@ -63,23 +58,9 @@
   },
   "devDependencies": {
     "@tonejs/midi": "^2.0.28",
-    "autoprefixer": "^10.4.13",
-    "concurrently": "^7.6.0",
-    "esbuild": "^0.17.5",
     "esbuild-css-modules-plugin": "^2.7.1",
-    "esbuild-plugin-solid": "^0.5.0",
-    "jsdom": "^21.1.0",
-    "prettier": "2.8.3",
-    "sass": "^1.57.1",
-    "solid-js": "^1.6.9",
     "tone": "^14.7.77",
-    "tsup": "^6.5.0",
-    "tsup-preset-solid": "^0.1.5",
-    "typescript": "^4.9.4",
-    "typescript-plugin-css-modules": "^4.1.1",
-    "vite": "^4.0.4",
-    "vite-plugin-solid": "^2.5.0",
-    "vitest": "^0.28.3"
+    "typescript-plugin-css-modules": "^4.1.1"
   },
   "keywords": [
     "solid"

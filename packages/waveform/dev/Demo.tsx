@@ -27,7 +27,8 @@ const Demo: Component = () => {
   let audioSource: AudioBufferSourceNode | undefined;
   let audioSourcePlayStart = 0;
 
-  const audioCtx = new (window.AudioContext || (window as any).webkitAudioContext)();
+  const audioCtx = new (window.AudioContext ||
+    (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext!)();
 
   const gainNode = new GainNode(audioCtx, {
     gain: 0.5,

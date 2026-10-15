@@ -7,7 +7,7 @@
 // = total content size. Pass a `size(i)` fn so heterogeneous item sizes are cheap.
 export function prefixSums(count: number, size: (index: number) => number): Float64Array {
   const arr = new Float64Array(count + 1);
-  for (let i = 0; i < count; i++) arr[i + 1] = arr[i] + size(i);
+  for (let i = 0; i < count; i++) arr[i + 1] = arr[i]! + size(i);
   return arr;
 }
 
@@ -31,14 +31,14 @@ export function windowRange(
   let hi = n;
   while (lo < hi) {
     const mid = (lo + hi) >> 1;
-    if (offsets[mid + 1] <= top) lo = mid + 1;
+    if (offsets[mid + 1]! <= top) lo = mid + 1;
     else hi = mid;
   }
   const start = Math.max(0, lo - overscan);
 
   let end = start;
   const bottom = top + Math.max(0, viewport);
-  while (end < n && offsets[end] < bottom) end++;
+  while (end < n && offsets[end]! < bottom) end++;
   end = Math.min(n, end + overscan);
 
   return { start, end };

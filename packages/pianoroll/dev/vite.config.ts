@@ -1,4 +1,4 @@
-import { defineConfig } from "vite";
+import { defaultClientConditions, defineConfig } from "vite";
 import solidPlugin from "vite-plugin-solid";
 
 export default defineConfig({
@@ -24,7 +24,11 @@ export default defineConfig({
   ],
   // One Solid for the roll and any linked package (e.g. a local solid-viewport);
   // two copies would each have their own context and reactivity.
-  resolve: { dedupe: ["solid-js"] },
+  resolve: {
+    dedupe: ["solid-js"],
+    // Workspace packages from their src/, so the demo hot-reloads across them.
+    conditions: ["@solid-music-ui/source", ...defaultClientConditions],
+  },
   server: {
     port: 3000,
   },

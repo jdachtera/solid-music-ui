@@ -1,0 +1,21 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "oxc"],
+  "categories": {
+    "correctness": "error"
+  },
+  "env": { "browser": true, "es2022": true },
+  "ignorePatterns": ["dist", "node_modules"],
+  "rules": {
+    "typescript/no-explicit-any": "error",
+    "eslint/no-unused-vars": ["error", { "varsIgnorePattern": "^_", "argsIgnorePattern": "^_" }],
+
+    // A `ref={el}` assigns the variable at render time, invisibly to the linter,
+    // so every Solid ref reads as "declared and never assigned".
+    "eslint/no-unassigned-vars": "off",
+
+    // A bare `props.x;` inside an effect is how Solid subscribes to a value the
+    // effect doesn't otherwise read.
+    "eslint/no-unused-expressions": "off"
+  }
+}

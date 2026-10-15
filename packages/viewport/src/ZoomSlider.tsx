@@ -30,7 +30,7 @@ export function ZoomSlider(props: {
       onInput={(e) => axis().onZoomChange?.(e.currentTarget.valueAsNumber)}
       style={{
         ...(vertical() ? { "writing-mode": "vertical-lr", direction: "rtl" } : {}),
-        ...(props.style || {}),
+        ...props.style,
       }}
     />
   );
