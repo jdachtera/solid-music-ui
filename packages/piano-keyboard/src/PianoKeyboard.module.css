@@ -1,0 +1,72 @@
+/* Every rule sits inside :where(), which has no specificity: a consumer's own
+   classes (the classes prop) or rules on the keys' data attributes override
+   any of it without a fight. Only where a key lies along the keyboard is set
+   inline. */
+
+:where(.keyboard) {
+  position: relative;
+  overflow: hidden;
+  /* Playing is a press and a slide, which the browser would otherwise take as
+     a scroll or a text selection. */
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  cursor: pointer;
+}
+
+:where(.key) {
+  position: absolute;
+  box-sizing: border-box;
+  display: flex;
+  border: 1px solid var(--piano-keyboard-line, #2a2a2a);
+}
+
+:where(.white) {
+  background: var(--piano-keyboard-white, #f4f4f2);
+  color: var(--piano-keyboard-label, #6b6b6b);
+}
+
+:where(.black) {
+  z-index: 1;
+  background: var(--piano-keyboard-black, #1b1b1b);
+  color: var(--piano-keyboard-label-black, #bbb);
+}
+
+:where(.down) {
+  background: var(--piano-keyboard-down, #e8553f);
+}
+
+/* Lengthwise, a black key is the back part of the key's length. */
+:where(.horizontal .key) {
+  top: 0;
+  border-radius: 0 0 4px 4px;
+  align-items: flex-end;
+  justify-content: center;
+}
+:where(.horizontal .white) {
+  height: 100%;
+}
+:where(.horizontal .black) {
+  height: var(--piano-keyboard-black-length, 62%);
+}
+
+:where(.vertical .key) {
+  left: 0;
+  border-radius: 0 4px 4px 0;
+  align-items: center;
+  justify-content: flex-end;
+}
+:where(.vertical .white) {
+  width: 100%;
+}
+:where(.vertical .black) {
+  width: var(--piano-keyboard-black-length, 62%);
+}
+
+:where(.label) {
+  padding: 3px;
+  font-size: 9px;
+  line-height: 1;
+  pointer-events: none;
+}

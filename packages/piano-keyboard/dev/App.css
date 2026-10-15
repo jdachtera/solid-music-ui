@@ -1,0 +1,101 @@
+:root {
+  color-scheme: dark;
+  font-family: system-ui, sans-serif;
+  background: #15161a;
+  color: #e6e6e6;
+  --piano-keyboard-down: #4f8cff;
+}
+
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+h2 {
+  margin: 32px 0 4px;
+  font-size: 1.1rem;
+}
+
+.muted {
+  margin: 0 0 12px;
+  color: #9a9ca5;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.keyboard-horizontal {
+  height: 160px;
+}
+
+.log {
+  margin-top: 8px;
+  min-height: 1.4em;
+  font-family: ui-monospace, monospace;
+  font-size: 12px;
+  color: #9a9ca5;
+}
+
+.roll {
+  position: relative;
+  height: 320px;
+  border: 1px solid #333;
+}
+
+.roll-row {
+  position: absolute;
+  inset: 0;
+  display: flex;
+}
+
+.keyboard-vertical {
+  flex: none;
+  width: 72px;
+  height: 100%;
+}
+
+.roll-grid {
+  position: relative;
+  flex: 1;
+}
+
+.roll-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+  border-bottom: 1px solid #23252b;
+}
+
+.roll-line-c {
+  border-bottom-color: #3a3d46;
+}
+
+.pads {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  touch-action: none;
+  user-select: none;
+}
+
+.pad {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 72px;
+  padding-bottom: 8px;
+  border: 1px solid #333;
+  border-radius: 8px;
+  background: #22242a;
+}
+
+.pad-down {
+  background: #4f8cff;
+  color: #fff;
+}

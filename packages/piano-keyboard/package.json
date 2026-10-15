@@ -1,0 +1,63 @@
+{
+  "version": "0.1.0",
+  "name": "solid-piano-keyboard",
+  "description": "Piano keyboard for Solid JS: several fingers at once, glissando, velocity from where the key is struck, fits a width or follows a solid-viewport axis",
+  "license": "MIT",
+  "author": "jdachtera",
+  "contributors": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jdachtera/solid-music-ui.git",
+    "directory": "packages/piano-keyboard"
+  },
+  "homepage": "https://github.com/jdachtera/solid-music-ui/tree/main/packages/piano-keyboard#readme",
+  "bugs": {
+    "url": "https://github.com/jdachtera/solid-music-ui/issues"
+  },
+  "private": false,
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "@solid-music-ui/source": "./src/index.tsx",
+      "solid": "./dist/index.jsx",
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "scripts": {
+    "dev": "vite serve dev",
+    "build-dev": "vite build dev",
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "prepublishOnly": "pnpm build"
+  },
+  "keywords": [
+    "solid",
+    "solid-js",
+    "piano",
+    "keyboard",
+    "midi",
+    "music"
+  ],
+  "peerDependencies": {
+    "solid-js": "^1.6.0"
+  },
+  "devDependencies": {
+    "esbuild-css-modules-plugin": "^2.7.1",
+    "solid-viewport": "workspace:^"
+  }
+}

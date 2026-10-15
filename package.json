@@ -2,7 +2,7 @@
   "name": "solid-music-ui",
   "private": true,
   "type": "module",
-  "description": "Solid JS components for music apps: viewport, waveform, piano roll",
+  "description": "Solid JS components for music apps: viewport, waveform, piano roll, piano keyboard",
   "license": "MIT",
   "packageManager": "pnpm@10.28.0",
   "engines": {
