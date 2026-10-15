@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "name": "solid-piano-keyboard",
   "description": "Piano keyboard for Solid JS: several fingers at once, glissando, velocity from where the key is struck, fits a width or follows a solid-viewport axis",
   "license": "MIT",
