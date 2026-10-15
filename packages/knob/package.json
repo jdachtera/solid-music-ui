@@ -1,5 +1,5 @@
 {
-  "version": "0.0.0",
+  "version": "0.1.0",
   "name": "solid-knob",
   "description": "A rotary knob for Solid JS: relative drag, steps with detents, double-tap reset, keyboard control, and a hold that keeps a remote round-trip from snapping it back",
   "license": "MIT",
