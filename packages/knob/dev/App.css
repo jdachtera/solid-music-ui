@@ -1,0 +1,64 @@
+:root {
+  color-scheme: dark;
+  font-family: system-ui, sans-serif;
+  background: #15161a;
+  color: #e8eaf0;
+}
+
+main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+h2 {
+  margin: 32px 0 4px;
+  font-size: 1.1rem;
+}
+
+.muted {
+  margin: 0 0 12px;
+  color: #9a9ca5;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px;
+  padding: 12px;
+  border-radius: 12px;
+}
+
+.pocketrig {
+  background: #2b2f3a;
+  --knob-ring-max: 96px;
+  --knob-type: 1.3;
+  --knob-ends: block;
+}
+
+/* A brushed-metal panel with machined knobs, like obxd-mobile's. */
+.obxd {
+  border: 1px solid #3a3d44;
+  background: linear-gradient(180deg, #34363c, #24262b);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 2px 6px rgba(0, 0, 0, 0.5);
+  --knob-accent: #e8a33d;
+  --knob-track: #17181c;
+  --knob-panel: #121316;
+  --knob-pointer: #15161a;
+  --knob-stroke: 3px;
+  --knob-halo: 0;
+  --knob-label: #a3a7b0;
+  --knob-ring-max: 72px;
+  --knob-type: 1.15;
+}
+
+.obxd [data-part="label"] {
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.obxd [data-dragging] [data-part="fill"] {
+  filter: drop-shadow(0 0 1.5px #e8a33d);
+}

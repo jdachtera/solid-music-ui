@@ -2,11 +2,13 @@
 
 Solid JS components for music apps, published as separate npm packages.
 
-| Package                                 |                                                                        | Demo                                         |
-| --------------------------------------- | ---------------------------------------------------------------------- | -------------------------------------------- |
-| [`solid-viewport`](packages/viewport)   | One scroll/zoom core: virtual lists, waveforms, piano rolls, keyboards | [demo](https://solid-viewport.netlify.app/)  |
-| [`solid-waveform`](packages/waveform)   | Waveform display with regions, markers and a play head                 | [demo](https://solid-waveform.netlify.app/)  |
-| [`solid-pianoroll`](packages/pianoroll) | Piano roll editor                                                      | [demo](https://solid-pianoroll.netlify.app/) |
+| Package                                           |                                                                                            | Demo                                         |
+| ------------------------------------------------- | ------------------------------------------------------------------------------------------ | -------------------------------------------- |
+| [`solid-viewport`](packages/viewport)             | One scroll/zoom core: virtual lists, waveforms, piano rolls, keyboards                     | [demo](https://solid-viewport.netlify.app/)  |
+| [`solid-waveform`](packages/waveform)             | Waveform display with regions, markers and a play head                                     | [demo](https://solid-waveform.netlify.app/)  |
+| [`solid-pianoroll`](packages/pianoroll)           | Piano roll editor                                                                          | [demo](https://solid-pianoroll.netlify.app/) |
+| [`solid-piano-keyboard`](packages/piano-keyboard) | Piano keyboard: several fingers, glissando, velocity, piano or roll layout                 | `pnpm --filter solid-piano-keyboard dev`     |
+| [`solid-knob`](packages/knob)                     | Rotary knob: relative drag, steps, double-tap reset, a hold against round trips, skinnable | `pnpm --filter solid-knob dev`               |
 
 Each package was its own repository until it moved here with its history.
 Release tags are `<package>@<version>`.

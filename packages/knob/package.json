@@ -1,0 +1,63 @@
+{
+  "version": "0.0.0",
+  "name": "solid-knob",
+  "description": "A rotary knob for Solid JS: relative drag, steps with detents, double-tap reset, keyboard control, and a hold that keeps a remote round-trip from snapping it back",
+  "license": "MIT",
+  "author": "jdachtera",
+  "contributors": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jdachtera/solid-music-ui.git",
+    "directory": "packages/knob"
+  },
+  "homepage": "https://github.com/jdachtera/solid-music-ui/tree/main/packages/knob#readme",
+  "bugs": {
+    "url": "https://github.com/jdachtera/solid-music-ui/issues"
+  },
+  "private": false,
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "@solid-music-ui/source": "./src/index.tsx",
+      "solid": "./dist/index.jsx",
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "scripts": {
+    "dev": "vite serve dev",
+    "build-dev": "vite build dev",
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "prepublishOnly": "pnpm build"
+  },
+  "keywords": [
+    "solid",
+    "solid-js",
+    "knob",
+    "dial",
+    "encoder",
+    "slider",
+    "music"
+  ],
+  "peerDependencies": {
+    "solid-js": "^1.6.0"
+  },
+  "devDependencies": {
+    "esbuild-css-modules-plugin": "^2.7.1"
+  }
+}

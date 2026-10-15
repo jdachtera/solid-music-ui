@@ -1,0 +1,231 @@
+/* Every rule sits inside :where(), which has no specificity: a consumer's own
+   class on the knob, or rules on its role and data attributes, override any of
+   it without a fight. Colours, sizes and type are custom properties:
+
+   --knob-accent      the fill and its glow
+   --knob-track       the unfilled travel
+   --knob-panel       what the knob sits on (notches and the thumb's ring)
+   --knob-thumb       the cap on the end of the fill
+   --knob-label       the label and the end names
+   --knob-focus       the keyboard focus ring
+   --knob-font        the value's and end names' font
+   --knob-ring-max    the largest the ring grows (it fills its width up to this)
+   --knob-type        a scale for all of the knob's text
+   --knob-ends        "block" to name a stepped knob's ends (none by default)
+   --knob-stroke      the ring's thickness in the dial's 36-unit box, where 1px is one unit (3.2px)
+   --knob-halo        the glow's opacity (0.55; 0 for none)
+   --knob-cap         the cap's fill, or its gradient's --knob-cap-light,
+                      --knob-cap-mid and --knob-cap-dark (with the cap prop)
+   --knob-pointer     the pointer line's colour (with indicator="pointer")
+
+   For anything further, every part carries data-part (ring, halo, dial,
+   track, fill, notch, cap, thumb, pointer, value, lo, hi, label) and the knob
+   data-dragging while it is held, so a stylesheet can reach all of it, e.g.
+   .mine[data-dragging] [data-part="fill"] { filter: drop-shadow(...) }. */
+
+/* The knob is the control, not just its ring: the value inside and the label
+   below are readout, and the whole column takes the drag. */
+:where(.knob) {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  border-radius: 10px;
+  /* Both axes belong to the knob: a drag up or down is a value change, not a
+     page scroll. pan-y here would let the browser take every vertical gesture
+     before pointermove ever saw it. */
+  touch-action: none;
+  cursor: grab;
+}
+
+:where(.knob:active) {
+  cursor: grabbing;
+}
+
+/* The gesture target, a little past the knob on every side. */
+:where(.knob)::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+}
+
+:where(.knob:focus-visible) {
+  outline: 2px solid var(--knob-focus, #3a8cff);
+  outline-offset: 1px;
+}
+
+:where(.spare) {
+  cursor: default;
+  opacity: 0.45;
+}
+
+/* Square, fluid and capped: the ring follows its column's width, but stops
+   growing past a size that still reads as a knob. */
+:where(.ring) {
+  position: relative;
+  width: 100%;
+  max-width: var(--knob-ring-max, 60px);
+  align-self: center;
+  aspect-ratio: 1;
+}
+
+:where(.dial) {
+  /* Positioned, so it paints over the halo before it rather than under it. */
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* The thumb reaches a hair past the box at the arc's ends. */
+  overflow: visible;
+  /* Decorative: a press on the ring is a press on the knob. */
+  pointer-events: none;
+}
+
+:where(.track, .progress) {
+  fill: none;
+  stroke-width: var(--knob-stroke, 3.2px);
+  stroke-linecap: round;
+}
+
+/* The full 270° range, always drawn: the travel a real knob implies. */
+:where(.track) {
+  stroke: var(--knob-track, #4a4f5e);
+  stroke-dasharray: 75, 100; /* ARC in Knob.tsx, of R's ~100-unit circumference */
+}
+
+/* A stepped knob's steps: cuts in the panel's colour across track and fill. */
+:where(.notch) {
+  stroke: var(--knob-panel, #2b2f3a);
+  stroke-width: 1.1;
+}
+
+/* The pointer: a light cap riding the end of the fill, ringed in the panel's
+   colour so it sits on the arc rather than blurring into it. */
+:where(.thumb) {
+  fill: var(--knob-thumb, #e8eaf0);
+  stroke: var(--knob-panel, #2b2f3a);
+  stroke-width: 0.9;
+}
+
+/* A stepped knob's two ends, named under the arc's open bottom, where there is
+   room for them (--knob-ends). */
+:where(.end) {
+  position: absolute;
+  bottom: -1px;
+  display: var(--knob-ends, none);
+  max-width: 42%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: calc(7px * var(--knob-type, 1));
+  font-family: var(--knob-font, ui-monospace, monospace);
+  color: var(--knob-label, #8b90a0);
+  pointer-events: none;
+}
+
+:where(.lo) {
+  left: 6%;
+}
+
+:where(.hi) {
+  right: 6%;
+  text-align: right;
+}
+
+/* The value, swept from the same 7:30 start as the track. Its dash length is
+   set by Knob.tsx. */
+:where(.progress) {
+  stroke: var(--knob-accent, #ff7a2f);
+}
+
+/* The fill's glow (see Knob.tsx): the arc again, under the dial, blurred, built
+   so WebKit draws it. */
+:where(.halo) {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  filter: blur(2px);
+  opacity: var(--knob-halo, 0.55);
+}
+
+:where(.haloArc) {
+  fill: none;
+  stroke: var(--knob-accent, #ff7a2f);
+  stroke-width: calc(var(--knob-stroke, 3.2px) + 1px);
+  stroke-linecap: round;
+}
+
+/* Centred over the ring rather than laid out in flow. SVG text would scale with
+   the ring for free but fights baseline centring across engines; a plain span
+   keeps normal text rendering and spills past the ring on the rare value that
+   does not fit, rather than dropping a character of it. */
+:where(.value) {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(9.5px * var(--knob-type, 1));
+  font-family: var(--knob-font, ui-monospace, monospace);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.3px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* Under the ring instead (valuePosition="below"), above the label. */
+:where(.valueBelow) {
+  position: static;
+  font-size: calc(11px * var(--knob-type, 1));
+  line-height: 1.25;
+}
+
+/* A knob's cap (the cap prop), lit from the upper left. */
+:where(.cap) {
+  stroke: var(--knob-panel, #2b2f3a);
+  stroke-width: 0.75;
+}
+:where(.capLight) {
+  stop-color: var(--knob-cap-light, #e2e5ea);
+}
+:where(.capMid) {
+  stop-color: var(--knob-cap-mid, #90959e);
+}
+:where(.capDark) {
+  stop-color: var(--knob-cap-dark, #3a3d44);
+}
+
+/* indicator="pointer": a line from the centre, like a knob's painted mark. */
+:where(.pointer) {
+  stroke: var(--knob-pointer, #15161a);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+/* Below the ring, ellipsised rather than wrapped: a second line would make a
+   row of knobs uneven. */
+:where(.label) {
+  width: 100%;
+  font-size: calc(9px * var(--knob-type, 1));
+  color: var(--knob-label, #8b90a0);
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* On the narrowest phones, what room is left goes to the ring rather than to
+   text that is about to be ellipsised anyway. */
+@media (max-width: 340px) {
+  :where(.value) {
+    font-size: 8.5px;
+  }
+
+  :where(.label) {
+    font-size: 8px;
+  }
+}
