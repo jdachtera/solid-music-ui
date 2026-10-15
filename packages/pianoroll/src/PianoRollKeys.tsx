@@ -1,94 +1,43 @@
 import styles from "./PianoRollKeys.module.css";
-import { createEffect, createMemo, createSignal, Index, Show } from "solid-js";
+import { createMemo } from "solid-js";
+import { PianoKeyboard } from "solid-piano-keyboard";
 import { ScrollContainer, useAxis } from "solid-viewport";
 import { usePianoRollContext } from "./PianoRollContext";
 
 const PianoRollKeys = () => {
   const verticalViewPort = createMemo(() => useAxis("vertical"));
   const horizontalViewPort = createMemo(() => useAxis("horizontalKeys"));
-  const [isMouseDown, setIsMouseDown] = createSignal(false);
   const context = usePianoRollContext();
 
-  const handleMouseUp = () => {
-    setIsMouseDown(false);
-  };
-
-  createEffect(() => {
-    if (isMouseDown()) {
-      window.addEventListener("pointerup", handleMouseUp);
-      window.addEventListener("pointercancel", handleMouseUp);
-    } else {
-      window.removeEventListener("pointerup", handleMouseUp);
-      window.removeEventListener("pointercancel", handleMouseUp);
-    }
-  });
+  // The track each sounding key was pressed for. Its release goes to that
+  // track even when the selection has moved on since, or the new track would
+  // get a note-off it never had a note-on for and the old one would hang.
+  const pressedOn = new Map<number, number>();
 
   return (
     <div class={styles.PianoRollKeys} style={{ width: `${horizontalViewPort().pixelSize}px` }}>
       <ScrollContainer horizontalAxis="horizontalKeys" style={{ "z-index": 4 }}>
-        <Index each={keys}>
-          {(key) => {
-            const isDown = createMemo(() =>
-              context.isKeyDown(context.selectedTrackIndex, key().number),
-            );
-            const virtualDimensions = createMemo(() =>
-              verticalViewPort().dimensions(127 - key().number, 1),
-            );
-
-            const previousIsBlack = blackKeys.includes((key().number - 1) % 12);
-            const nextIsBlack = blackKeys.includes((key().number + 1) % 12);
-
-            return (
-              <Show when={verticalViewPort().isVisible(virtualDimensions())}>
-                <div
-                  classList={{
-                    [styles["Key"]]: true,
-                    [styles["black"]]: key().isBlack,
-                    [styles["white"]]: !key().isBlack,
-                    [styles["down"]]: isDown(),
-                  }}
-                  onPointerDown={(event) => {
-                    // Touch implicitly captures the pointer to the element it
-                    // started on, which would make every note in a glissando
-                    // sound as the first key. Releasing the capture puts the
-                    // enter/leave events back on the keys actually under the
-                    // finger, which is what makes sliding along the keyboard
-                    // play the keyboard.
-                    event.currentTarget.releasePointerCapture?.(event.pointerId);
-                    setIsMouseDown(true);
-                    context.onNoteDown(context.selectedTrackIndex, key().number);
-                  }}
-                  onPointerUp={() => {
-                    context.onNoteUp(context.selectedTrackIndex, key().number);
-                  }}
-                  onPointerEnter={() => {
-                    if (isMouseDown()) {
-                      context.onNoteDown(context.selectedTrackIndex, key().number);
-                    }
-                  }}
-                  onPointerLeave={() => {
-                    if (isMouseDown()) {
-                      context.onNoteUp(context.selectedTrackIndex, key().number);
-                    }
-                  }}
-                  title={key().name}
-                  data-index={key().number % 12}
-                  style={{
-                    top: `${
-                      virtualDimensions().offset -
-                      virtualDimensions().size * (!key().isBlack ? (nextIsBlack ? 1 / 2 : 0) : 0)
-                    }px`,
-                    height: `${
-                      virtualDimensions().size +
-                      (!key().isBlack && nextIsBlack ? virtualDimensions().size / 2 : 0) +
-                      (!key().isBlack && previousIsBlack ? virtualDimensions().size / 2 : 0)
-                    }px`,
-                  }}
-                ></div>
-              </Show>
-            );
+        <PianoKeyboard
+          class={styles.Keyboard}
+          low={0}
+          high={127}
+          orientation="vertical"
+          layout="rows"
+          axis={verticalViewPort()}
+          middleC={3}
+          resetKey={context.selectedTrackIndex}
+          isDown={(note) => context.isKeyDown(context.selectedTrackIndex, note)}
+          onNoteOn={(note, velocity) => {
+            pressedOn.set(note, context.selectedTrackIndex);
+            context.onNoteDown(context.selectedTrackIndex, note, velocity);
           }}
-        </Index>
+          onNoteOff={(note) => {
+            const track = pressedOn.get(note) ?? context.selectedTrackIndex;
+            pressedOn.delete(note);
+            context.onNoteUp(track, note);
+          }}
+          classes={{ key: styles.Key, white: styles.white, black: styles.black, down: styles.down }}
+        />
       </ScrollContainer>
     </div>
   );

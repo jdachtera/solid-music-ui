@@ -11,6 +11,14 @@
   background: var(--pianoroll-keys-background, black);
 }
 
+/* The keyboard fills the scroller the way the keys used to, and lets the keys'
+   overhang show: they are laid out wider than the column, from -20%. */
+.Keyboard {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+}
+
 .Key {
   /* Playing the keyboard is a press and a slide, both of which the browser would
      otherwise read as a scroll of the roll beside it. The keys are a fixed

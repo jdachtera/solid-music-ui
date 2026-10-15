@@ -19,7 +19,7 @@ export default defineConfig(({ mode }) => {
       watch: false,
       // Solid packages ship JSX/reactive code that has to share this Solid
       // instance; run them through Vite rather than load them from Node.
-      server: { deps: { inline: [/solid-viewport/] } },
+      server: { deps: { inline: [/solid-viewport/, /solid-piano-keyboard/] } },
       isolate: !testSSR,
       environment: testSSR ? "node" : "jsdom",
       ...(testSSR

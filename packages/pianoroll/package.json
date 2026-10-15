@@ -51,7 +51,8 @@
     "prepublishOnly": "pnpm build"
   },
   "dependencies": {
-    "solid-viewport": "workspace:^"
+    "solid-viewport": "workspace:^",
+    "solid-piano-keyboard": "workspace:^"
   },
   "peerDependencies": {
     "solid-js": "^1.6.0"

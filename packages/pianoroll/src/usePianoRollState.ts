@@ -149,7 +149,12 @@ const createPianoRollstate = (
     }
   };
 
-  const onNoteDown = (trackIndex: number, keyNumber: number) => {
+  // `velocity` (0–1) is how hard a key down the side was struck, for a caller
+  // that sounds the notes; the roll itself only shows the key as down.
+  const onNoteDown: (trackIndex: number, keyNumber: number, velocity?: number) => void = (
+    trackIndex,
+    keyNumber,
+  ) => {
     updateKeyPressedState(trackIndex, keyNumber, 1);
   };
 

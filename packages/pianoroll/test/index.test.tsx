@@ -242,7 +242,7 @@ describe("<PianoRoll>", () => {
       );
     }, host);
 
-    expect(host.querySelector("[title='C 3']")).not.toBeNull(); // a key
+    expect(host.querySelector("[title='C3']")).not.toBeNull(); // a key
     expect(host.textContent).toContain("Piano"); // the track list
     expect(host.querySelector(".PlayHead")).not.toBeNull();
 
