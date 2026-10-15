@@ -1,0 +1,105 @@
+import styles from "./PianoRollKeys.module.css";
+import { createEffect, createMemo, createSignal, Index, Show } from "solid-js";
+import { ScrollContainer, useAxis } from "solid-viewport";
+import { usePianoRollContext } from "./PianoRollContext";
+
+const PianoRollKeys = () => {
+  const verticalViewPort = createMemo(() => useAxis("vertical"));
+  const horizontalViewPort = createMemo(() => useAxis("horizontalKeys"));
+  const [isMouseDown, setIsMouseDown] = createSignal(false);
+  const context = usePianoRollContext();
+
+  const handleMouseUp = () => {
+    setIsMouseDown(false);
+  };
+
+  createEffect(() => {
+    if (isMouseDown()) {
+      window.addEventListener("pointerup", handleMouseUp);
+      window.addEventListener("pointercancel", handleMouseUp);
+    } else {
+      window.removeEventListener("pointerup", handleMouseUp);
+      window.removeEventListener("pointercancel", handleMouseUp);
+    }
+  });
+
+  return (
+    <div class={styles.PianoRollKeys} style={{ width: `${horizontalViewPort().pixelSize}px` }}>
+      <ScrollContainer horizontalAxis="horizontalKeys" style={{ "z-index": 4 }}>
+        <Index each={keys}>
+          {(key) => {
+            const isDown = createMemo(() =>
+              context.isKeyDown(context.selectedTrackIndex, key().number),
+            );
+            const virtualDimensions = createMemo(() =>
+              verticalViewPort().dimensions(127 - key().number, 1),
+            );
+
+            const previousIsBlack = blackKeys.includes((key().number - 1) % 12);
+            const nextIsBlack = blackKeys.includes((key().number + 1) % 12);
+
+            return (
+              <Show when={verticalViewPort().isVisible(virtualDimensions())}>
+                <div
+                  classList={{
+                    [styles["Key"]]: true,
+                    [styles["black"]]: key().isBlack,
+                    [styles["white"]]: !key().isBlack,
+                    [styles["down"]]: isDown(),
+                  }}
+                  onPointerDown={(event) => {
+                    // Touch implicitly captures the pointer to the element it
+                    // started on, which would make every note in a glissando
+                    // sound as the first key. Releasing the capture puts the
+                    // enter/leave events back on the keys actually under the
+                    // finger, which is what makes sliding along the keyboard
+                    // play the keyboard.
+                    event.currentTarget.releasePointerCapture?.(event.pointerId);
+                    setIsMouseDown(true);
+                    context.onNoteDown(context.selectedTrackIndex, key().number);
+                  }}
+                  onPointerUp={() => {
+                    context.onNoteUp(context.selectedTrackIndex, key().number);
+                  }}
+                  onPointerEnter={() => {
+                    if (isMouseDown()) {
+                      context.onNoteDown(context.selectedTrackIndex, key().number);
+                    }
+                  }}
+                  onPointerLeave={() => {
+                    if (isMouseDown()) {
+                      context.onNoteUp(context.selectedTrackIndex, key().number);
+                    }
+                  }}
+                  title={key().name}
+                  data-index={key().number % 12}
+                  style={{
+                    top: `${
+                      virtualDimensions().offset -
+                      virtualDimensions().size * (!key().isBlack ? (nextIsBlack ? 1 / 2 : 0) : 0)
+                    }px`,
+                    height: `${
+                      virtualDimensions().size +
+                      (!key().isBlack && nextIsBlack ? virtualDimensions().size / 2 : 0) +
+                      (!key().isBlack && previousIsBlack ? virtualDimensions().size / 2 : 0)
+                    }px`,
+                  }}
+                ></div>
+              </Show>
+            );
+          }}
+        </Index>
+      </ScrollContainer>
+    </div>
+  );
+};
+
+export const blackKeys = [1, 3, 6, 8, 10];
+export const keyNames = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+export const keys = Array.from({ length: 128 }).map((_, index) => ({
+  number: index,
+  name: `${keyNames[index % 12]} ${Math.floor(index / 12) - 2}`,
+  isBlack: blackKeys.includes(index % 12),
+}));
+
+export default PianoRollKeys;
